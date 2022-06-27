@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/c-tuck/packages.git"
   },
+  "dependencies": {
+    "@c-tuck/test-package-1": "^1.0.0",
+    "@c-tuck/test-package-2": "^1.0.0"
+  },
   "author": "",
   "license": "ISC",
   "bugs": {
