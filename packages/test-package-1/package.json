@@ -1,6 +1,6 @@
 {
-  "name": "@c-tuck/test-package-1",
-  "version": "1.0.0",
+  "name": "@package/test-package-1",
+  "version": "1.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
