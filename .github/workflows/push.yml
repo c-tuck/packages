@@ -1,0 +1,39 @@
+name: Test Github Packages - Push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test_github_actions_push:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [16.x]
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        always-auth: true
+        node-version: ${{ matrix.node-version }}
+        registry-url: https://npm.pkg.github.com
+    - run: echo ${{ github.ref }}
+    - run: echo ${{ github.base_ref }}
+    - run: echo ${{ github.head_ref }}
+    - run: echo ${GITHUB_REF}
+    - run: echo ${GITHUB_REF##*/}
+    - run: echo ${GITHUB_BASE_REF}
+    - run: echo ${GITHUB_BASE_REF##*/}
+    - run: echo ${GITHUB_HEAD_REF}
+    - run: echo ${GITHUB_HEAD_REF##*/}
+    - run: git branch --show-current
+    - run: env
+    - name: Install Deps
+      run: npm ci --ignore-scripts
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Run Program
+      run: node .
