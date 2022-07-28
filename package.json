@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gha": "zx ./script.mjs"
   },
   "repository": {
     "type": "git",
@@ -12,7 +13,8 @@
   },
   "dependencies": {
     "@c-tuck/test-package-1": "^1.0.0",
-    "@c-tuck/test-package-2": "^1.0.0"
+    "@c-tuck/test-package-2": "^1.0.0",
+    "zx": "^7.0.7"
   },
   "author": "",
   "license": "ISC",
