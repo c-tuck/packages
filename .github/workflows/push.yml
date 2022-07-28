@@ -37,3 +37,8 @@ jobs:
         NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Run Program
       run: node .
+    - name: Run script
+      run: npm run gha
+    - run: echo $NEW_VAR
+      env:
+        NEW_VAR: ${{ env.MY_ENV }}
