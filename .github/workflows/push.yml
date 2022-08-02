@@ -3,6 +3,11 @@ name: Test Github Packages - Push
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'packages/test-package-1/**'
+      - 'packages/test-package-2/**'
+      - '!packages/test-package-1/CHANGELOG.md'
+      - '!packages/test-package-2/CHANGELOG.md'
 
 jobs:
   test_github_actions_push:
