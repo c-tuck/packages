@@ -3,6 +3,8 @@ name: Test Github Packages - Push
 on:
   push:
     branches: [ main ]
+    tags:
+      - v1*
     paths:
       - 'packages/test-package-1/**'
       - 'packages/test-package-2/**'
