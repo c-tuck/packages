@@ -4,14 +4,7 @@ on:
   push:
     branches: [ main ]
     tags: [ v1* ]
-    paths:
-      - 'packages/test-package-1/**'
-      - 'packages/test-package-2/**'
-      - '!packages/test-package-1/CHANGELOG.md'
-      - '!packages/test-package-1/package.json'
-      - '!packages/test-package-2/CHANGELOG.md'
-      - '!packages/test-package-2/package.json'
-
+    
 jobs:
   test_github_actions_push:
     runs-on: ubuntu-latest
