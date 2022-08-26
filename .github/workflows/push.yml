@@ -8,6 +8,8 @@ on:
 jobs:
   test_github_actions_push:
     runs-on: ubuntu-latest
+    env:
+      TEST_ENV: ${{ fromJSON('{"branch":"this is a branch","tag":"this is a tag"}')[github.event_name] }}
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
@@ -21,6 +23,8 @@ jobs:
         always-auth: true
         node-version: ${{ matrix.node-version }}
         registry-url: https://npm.pkg.github.com
+    - name: What is this? This is ${{ env.TEST_ENV }}
+      run: echo $TEST_ENV
     - run: echo ${{ github.ref }}
     - run: echo ${{ github.base_ref }}
     - run: echo ${{ github.head_ref }}
