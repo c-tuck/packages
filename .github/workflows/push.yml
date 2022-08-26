@@ -9,7 +9,7 @@ jobs:
   test_github_actions_push:
     runs-on: ubuntu-latest
     env:
-      TEST_ENV: ${{ fromJSON('{"branch":"this is a branch","tag":"this is a tag"}')[github.event_name] }}
+      TEST_ENV: ${{ fromJSON('{"branch":"this is a branch","tag":"this is a tag"}')[github.ref_type] }}
     strategy:
       matrix:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
