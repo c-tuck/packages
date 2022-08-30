@@ -24,13 +24,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
         registry-url: https://npm.pkg.github.com
     - name: Get previous tagged release
-      if: github_ref_type == 'tag'
+      if: github.ref_type == 'tag'
       run: |
         git fetch --tags origin
         echo "PREVIOUS_TAG=$(git tag --list --sort=-v:refname "millerknoll-site@*" | head -2 | tail -1)" >> $GITHUB_ENV
     # Action reference: https://github.com/dorny/paths-filter
     - uses: dorny/paths-filter@v2
-      if: github_ref_type == 'tag'
+      if: github.ref_type == 'tag'
       id: filter
       with:
         filters: |
@@ -40,7 +40,7 @@ jobs:
             - 'packages/test-package-2/**'
         base: ${{ env.PREVIOUS_TAG }}
     - name: Print filter results
-      if: github_ref_type == 'tag'
+      if: github.ref_type == 'tag'
       run: |
         echo "test-package-1 changed? ${{ steps.filter.outputs.test1 }}"
         echo "test-package-2 changed? ${{ steps.filter.outputs.test2 }}"
