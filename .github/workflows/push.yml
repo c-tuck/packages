@@ -26,7 +26,7 @@ jobs:
     - name: Get previous tagged release
       if: github.ref_type == 'tag'
       run: |
-        git fetch --tags origin
+        git fetch --tags --force origin
         echo "PREVIOUS_TAG=$(git tag --list --sort=-v:refname | head -2 | tail -1)" >> $GITHUB_ENV
     # Action reference: https://github.com/dorny/paths-filter
     - uses: dorny/paths-filter@v2
