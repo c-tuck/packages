@@ -27,7 +27,7 @@ jobs:
       if: github.ref_type == 'tag'
       run: |
         git fetch --tags origin
-        echo "PREVIOUS_TAG=$(git tag --list --sort=-v:refname "millerknoll-site@*" | head -2 | tail -1)" >> $GITHUB_ENV
+        echo "PREVIOUS_TAG=$(git tag --list --sort=-v:refname | head -2 | tail -1)" >> $GITHUB_ENV
     # Action reference: https://github.com/dorny/paths-filter
     - uses: dorny/paths-filter@v2
       if: github.ref_type == 'tag'
