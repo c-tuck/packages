@@ -93,7 +93,7 @@ jobs:
     - name: Set env NEED
       run: |
         if [[ ${{ github.ref_type }} == 'branch' ]]; then
-            echo TYPE=${{ github.ref_type }} >> $GITHUB_ENV
+            echo TYPE=${{ secrets.branch }} >> $GITHUB_ENV
         else
             echo TYPE=${{ github.event_name }} >> $GITHUB_ENV
         fi
