@@ -15,7 +15,7 @@ jobs:
       name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
     env:
       TEST_ENV: ${{ fromJSON('{"branch":"$ASDF","tag":"this is a tag"}')[github.ref_type] }}
-      STAGE: ${{ secrets.STAGE }}
+      STAGE: ${{ secrets.STAGING }}
       PROD: ${{ secrets.PROD }}
     steps:
     - name: Checkout repository code
@@ -28,7 +28,7 @@ jobs:
         registry-url: https://npm.pkg.github.com
     - name: what env am i in
       run: |
-        echo ${{ secrets.STAGE }}
+        echo ${{ secrets.STAGING }}
         echo ${{ secrets.PROD }}
     - name: Get previous tagged release
       if: github.ref_type == 'tag'
