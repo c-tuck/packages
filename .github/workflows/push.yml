@@ -11,21 +11,25 @@ env:
 jobs:
   test_github_actions_push:
     runs-on: ubuntu-latest
+    environment:
+      name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
     env:
       TEST_ENV: ${{ fromJSON('{"branch":"$ASDF","tag":"this is a tag"}')[github.ref_type] }}
-    strategy:
-      matrix:
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-        node-version: [16.x]
+      STAGE: ${{ secrets.STAGE }}
+      PROD: ${{ secrets.PROD }}
     steps:
     - name: Checkout repository code
       uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 16
       uses: actions/setup-node@v3
       with:
         always-auth: true
-        node-version: ${{ matrix.node-version }}
+        node-version: 16.x
         registry-url: https://npm.pkg.github.com
+    - name: what env am i in
+      run: |
+        echo ${{ secrets.STAGE }}
+        echo ${{ secrets.PROD }}
     - name: Get previous tagged release
       if: github.ref_type == 'tag'
       run: |
