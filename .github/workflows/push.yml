@@ -81,7 +81,7 @@ jobs:
   tag:
     if: ${{ github.ref_type == 'tag' }}
     outputs:
-      filter_condition: 'asdf'
+      filter_conclusion: 'asdf'
     runs-on: ubuntu-latest
     steps:
     - name: what env am i in
