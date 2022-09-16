@@ -92,7 +92,7 @@ jobs:
       run: echo "Hello dep_branch"
     - name: Set env NEED
       run: |
-        if [[ ${{ github.ref_type }} == 'branch']]; then
+        if [[ ${{ github.ref_type }} == 'branch' ]]; then
             echo TYPE=${{ github.ref_type }} >> $GITHUB_ENV
         else
             echo TYPE=${{ github.event_name }} >> $GITHUB_ENV
