@@ -9,7 +9,8 @@ env:
   ASDF: asdf_variable
     
 jobs:
-  test_github_actions_push:
+  branch:
+    if: ${{ github.ref_type == 'branch' }}
     runs-on: ubuntu-latest
     environment:
       name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
@@ -75,17 +76,23 @@ jobs:
     - run: echo $NEW_VAR
       env:
         NEW_VAR: ${{ env.MY_ENV }}
-  test_env:
+  tag:
+    if: ${{ github.ref_type == 'tag' }}
     runs-on: ubuntu-latest
-    needs: test_github_actions_push
-    environment:
-      name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
-    env:
-      TEST_ENV: ${{ fromJSON('{"branch":"$ASDF","tag":"this is a tag"}')[github.ref_type] }}
-      STAGE: ${{ secrets.STAGING }}
-      PROD: ${{ secrets.PROD }}
     steps:
     - name: what env am i in
       run: |
         echo ${{ secrets.STAGING }}
         echo ${{ secrets.PROD }}
+  dep_branch:
+    runs-on: ubuntu-latest
+    needs: [branch]
+    steps:
+    - name: what env am i in
+      run: echo "Hello dep_branch"
+  dep_tag:
+    runs-on: ubuntu-latest
+    needs: [tag]
+    steps:
+    - name: what env am i in
+      run: echo "Hello dep_tag"
