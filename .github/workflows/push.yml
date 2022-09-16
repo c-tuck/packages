@@ -96,7 +96,7 @@ jobs:
         if [[ ${{ github.ref_type }} == branch ]]; then
             echo "::set-output name=password::${{ secrets.branch }}"
         else
-            echo "::set-output name=password::${{ github.ref_type }}"
+            echo "::set-output name=password::${{ github.event_name }}"
         fi
     - run: echo ${{ steps.setup.outputs.password }}
   dep_tag:
