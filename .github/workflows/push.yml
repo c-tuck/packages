@@ -91,6 +91,7 @@ jobs:
   dep_branch:
     runs-on: ubuntu-latest
     needs: [ branch, tag ]
+    if: ${{ always() && needs.branch.result == 'success' || needs.tag.result == 'success' }}
     env:
       FILTER_CONCLUSION: ${{ needs.tag.outputs.filter_conclusion || needs.branch.outputs.filter_conclusion }}
     steps:
