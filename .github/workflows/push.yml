@@ -80,6 +80,8 @@ jobs:
         NEW_VAR: ${{ env.MY_ENV }}
   tag:
     if: ${{ github.ref_type == 'tag' }}
+    outputs:
+      filter_condition: 'asdf'
     runs-on: ubuntu-latest
     steps:
     - name: what env am i in
@@ -88,9 +90,9 @@ jobs:
         echo ${{ secrets.PROD }}
   dep_branch:
     runs-on: ubuntu-latest
-    needs: [ branch ]
+    needs: [ branch, tag ]
     env:
-      FILTER_CONCLUSION: ${{ needs.branch.outputs.filter_conclusion }}
+      FILTER_CONCLUSION: ${{ needs.tag.outputs.filter_conclusion || needs.branch.outputs.filter_conclusion }}
     steps:
     - name: what env am i in
       run: echo "Hello dep_branch"
