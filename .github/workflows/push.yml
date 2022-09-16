@@ -100,7 +100,7 @@ jobs:
     - run: echo $TYPE
   dep_tag:
     runs-on: ubuntu-latest
-    needs: [ tag ]
+    needs: [ branch, tag ]
     steps:
     - name: what env am i in
       run: echo "Hello dep_tag"
