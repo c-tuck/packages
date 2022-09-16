@@ -7,13 +7,12 @@ on:
     
 env:
   ASDF: asdf_variable
-  ENVIRONMENT: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
     
 jobs:
   test_github_actions_push:
     runs-on: ubuntu-latest
     environment:
-      name: ${{ env.ENVIRONMENT }}
+      name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
     env:
       TEST_ENV: ${{ fromJSON('{"branch":"$ASDF","tag":"this is a tag"}')[github.ref_type] }}
       STAGE: ${{ secrets.STAGING }}
@@ -76,3 +75,17 @@ jobs:
     - run: echo $NEW_VAR
       env:
         NEW_VAR: ${{ env.MY_ENV }}
+  test_env:
+    runs-on: ubuntu-latest
+    needs: test_github_actions_push
+    environment:
+      name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
+    env:
+      TEST_ENV: ${{ fromJSON('{"branch":"$ASDF","tag":"this is a tag"}')[github.ref_type] }}
+      STAGE: ${{ secrets.STAGING }}
+      PROD: ${{ secrets.PROD }}
+    steps:
+    - name: what env am i in
+      run: |
+        echo ${{ secrets.STAGING }}
+        echo ${{ secrets.PROD }}
