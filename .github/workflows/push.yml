@@ -12,6 +12,8 @@ jobs:
   branch:
     if: ${{ github.ref_type == 'branch' }}
     runs-on: ubuntu-latest
+    outputs:
+      filter_conclusion: ${{ steps.filter.conclusion }}
     environment:
       name: ${{ fromJSON('{"branch":"Staging","tag":"Production"}')[github.ref_type] }}
     env:
@@ -87,6 +89,8 @@ jobs:
   dep_branch:
     runs-on: ubuntu-latest
     needs: [ branch ]
+    env:
+      FILTER_CONCLUSION: ${{ needs.branch.outputs.filter_conclusion }}
     steps:
     - name: what env am i in
       run: echo "Hello dep_branch"
@@ -99,6 +103,8 @@ jobs:
             echo "::set-output name=password::${{ github.event_name }}"
         fi
     - run: echo ${{ steps.setup.outputs.password }}
+    - run: echo ${{ needs.branch.outputs.filter_conclusion }}
+    - run: "ENV VAR: $FILTER_CONCLUSION"
   dep_tag:
     runs-on: ubuntu-latest
     needs: [ branch, tag ]
